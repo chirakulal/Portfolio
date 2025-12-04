@@ -1,246 +1,1488 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="index.css">
-  <title>Portfolio</title>
-  <!--boxicons-->
-  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chirashree L K - Java Developer Portfolio</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-color: #0a192f;
+            --second-bg-color: #112240;
+            --text-color: #e6f1ff;
+            --main-color: #64ffda;
+            --accent-color: #8892b0;
+            --card-bg: rgba(17, 34, 64, 0.7);
+        }
+
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--second-bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--main-color);
+            border-radius: 5px;
+        }
+
+        /* Header - Enhanced */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 9%;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .header.sticky {
+            padding: 1.5rem 9%;
+            background: rgba(10, 25, 47, 0.98);
+            box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            color: var(--text-color);
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .logo span {
+            color: var(--main-color);
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--main-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        .navbar a {
+            font-size: 1.6rem;
+            color: var(--text-color);
+            font-weight: 500;
+            margin-left: 3.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--main-color);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::after,
+        .navbar a.active::after {
+            width: 100%;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            color: var(--main-color);
+        }
+
+        #menu-icon {
+            font-size: 3.6rem;
+            color: var(--text-color);
+            cursor: pointer;
+            display: none;
+            transition: color 0.3s ease;
+        }
+
+        #menu-icon:hover {
+            color: var(--main-color);
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 12rem 9% 2rem;
+        }
+
+        /* Home Section - Enhanced */
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8rem;
+            position: relative;
+        }
+
+        .home-content {
+            max-width: 70rem;
+            z-index: 99;
+        }
+
+        .home-content h1 {
+            font-size: 5.6rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.2s;
+        }
+
+        .home-content h1 span {
+            color: var(--main-color);
+        }
+
+       .text-animate {
+    position: relative;
+    height: 7rem;
+    margin: 2.5rem 0;
+    overflow: hidden;
+}
+
+/* Main heading */
+.text-animate h3 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--main-color);
+    line-height: 7rem;
+    display: inline-block;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+}
+
+/* Typing effect */
+.typing-text {
+    color: var(--main-color);
+    -webkit-text-stroke: 0;
+    border-right: 3px solid var(--main-color);
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    animation: typing 3.8s steps(30) forwards, blink 0.75s step-end infinite;
+}
+
+/* Typing animation */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Cursor blinking */
+@keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: var(--main-color) }
+}
+
+/* Fade-in effect for main h3 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+        .home-content p {
+            font-size: 1.8rem;
+            margin: 3rem 0 4rem;
+            color: var(--accent-color);
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .btn-box {
+            display: flex;
+            gap: 2rem;
+            margin: 4rem 0;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 1.1s;
+        }
+
+        .btn {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.4rem 3.2rem;
+            background: transparent;
+            border: 2px solid var(--main-color);
+            border-radius: .5rem;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            color: var(--main-color);
+            z-index: 1;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--main-color);
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            color: var(--bg-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
+        }
+
+        .home-sci {
+            display: flex;
+            gap: 2rem;
+            margin-top: 4rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 1.4s;
+        }
+
+        .home-sci a {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 2px solid var(--main-color);
+            border-radius: 50%;
+            font-size: 2.2rem;
+            color: var(--main-color);
+            z-index: 1;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .home-sci a:hover {
+            color: var(--bg-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.3);
+        }
+
+        .home-sci a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--main-color);
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .home-sci a:hover::before {
+            width: 100%;
+        }
+
+        /* Alternative: Large Circular Image */
+.home-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards;
+    animation-delay: 0.5s;
+}
+
+
+.home-img img {
+    /* width: 100%; */
+    max-width: 950px; /* increase from 550px */
+    height: 500px; /* increase height */
+    border-radius: 10px;
+    box-shadow: 
+        0 25px 70px rgba(0, 0, 0, 0.7),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border: 3px solid var(--main-color);
+    animation: floatImage 4s ease-in-out infinite;
+    transition: all 0.4s ease;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(1.05) contrast(1.05);
+}
+
+
+.home-img img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 60px rgba(100, 255, 218, 0.4);
+}
+
+/* Float animation for circular image */
+@keyframes floatImage {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-2.4rem) scale(1.02);
+    }
+    100% {
+        transform: translateY(0) scale(1);
+    }
+}
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* About Section */
+        .about {
+            background: var(--second-bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-bottom: 8rem;
+        }
+
+        .section-title {
+            font-size: 5.5rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--main-color);
+            border-radius: 2px;
+        }
+
+        span {
+            color: var(--main-color);
+        }
+
+        .about-content {
+            max-width: 85rem;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .about-content h3 {
+            font-size: 3.8rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .about-content p {
+            font-size: 1.9rem;
+            margin: 2.5rem 0 4rem;
+            line-height: 1.9;
+            color: var(--accent-color);
+            text-align: left;
+            padding: 0 2rem;
+        }
+
+        .about-content .btn {
+            margin-top: 2rem;
+        }
+
+        /* Skills Section */
+        .skills {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            cursor: pointer;
+            height: 180px;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--main-color);
+            box-shadow: 0 15px 30px rgba(100, 255, 218, 0.15);
+            background: rgba(100, 255, 218, 0.05);
+        }
+
+        .skill-card img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            padding: 10px;
+            background: rgba(100, 255, 218, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .skill-card span {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-top: 10px;
+        }
+
+        /* Technical Summary Section */
+        .technical-summary {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 60px;
+            width: 100%;
+            max-width: 1300px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .technical-summary h3 {
+            font-size: 3rem;
+            color: var(--main-color);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .technical-summary h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: var(--main-color);
+            border-radius: 2px;
+        }
+
+        .tech-category {
+            margin-bottom: 50px;
+        }
+
+        .tech-category h4 {
+            font-size: 2.2rem;
+            color: var(--main-color);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(100, 255, 218, 0.3);
+            font-weight: 600;
+        }
+
+        .tech-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .tech-item {
+            background: rgba(100, 255, 218, 0.03);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--main-color);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .tech-item:hover {
+            transform: translateX(10px);
+            background: rgba(100, 255, 218, 0.07);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.1);
+        }
+
+        .tech-item h5 {
+            font-size: 1.7rem;
+            color: var(--main-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .tech-item p {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* Projects Section */
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .project-title {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .project-title h4 {
+            font-size: 2.8rem;
+            color: var(--main-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .project-title p {
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 35px;
+            width: 100%;
+            max-width: 1300px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .project-link {
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+
+        .project {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project:hover {
+            transform: translateY(-15px);
+            border-color: var(--main-color);
+            box-shadow: 0 20px 40px rgba(100, 255, 218, 0.15);
+        }
+
+        .project i {
+            font-size: 3.5rem;
+            color: var(--main-color);
+            margin-bottom: 25px;
+            background: rgba(100, 255, 218, 0.1);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .project:hover i {
+            transform: scale(1.1);
+            background: rgba(100, 255, 218, 0.2);
+        }
+
+        .project h4 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .project p {
+            color: var(--accent-color);
+            line-height: 1.8;
+            font-size: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .project strong {
+            color: var(--main-color);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--second-bg-color);
+        }
+
+        .heading {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .heading::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--main-color);
+            border-radius: 2px;
+        }
+
+        form {
+            max-width: 850px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .input-box {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            margin-bottom: 40px;
+        }
+
+        .input-field {
+            position: relative;
+        }
+
+        .input-field input,
+        .textarea-field textarea {
+            width: 100%;
+            padding: 22px;
+            font-size: 1.6rem;
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(100, 255, 218, 0.2);
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-field input:focus,
+        .textarea-field textarea:focus {
+            border-color: var(--main-color);
+            background: rgba(100, 255, 218, 0.05);
+        }
+
+        .textarea-field {
+            margin-bottom: 40px;
+        }
+
+        .textarea-field textarea {
+            resize: none;
+            height: 220px;
+        }
+
+        .input-field .focus,
+        .textarea-field .focus {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 10px;
+            z-index: -1;
+            transition: width 0.3s ease;
+        }
+
+        .input-field input:focus~.focus,
+        .input-field input:valid~.focus,
+        .textarea-field textarea:focus~.focus,
+        .textarea-field textarea:valid~.focus {
+            width: 100%;
+        }
+
+        form .btn {
+            margin: 0 auto;
+            display: block;
+            width: 200px;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(5, 17, 41, 0.95);
+            padding: 40px 9%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .footer-text p {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .footer-iconTop a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--main-color);
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-iconTop a i {
+            font-size: 2rem;
+            color: var(--bg-color);
+            transition: all 0.3s ease;
+        }
+
+        .footer-iconTop a:hover {
+            background: transparent;
+            border: 2px solid var(--main-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-iconTop a:hover i {
+            color: var(--main-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            html {
+                font-size: 55%;
+            }
+
+            section {
+                padding: 10rem 5% 5rem;
+            }
+
+            .header {
+                padding: 2rem 5%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .home {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 12rem;
+                gap: 6rem;
+            }
+
+            .home-content {
+                max-width: 100%;
+                margin-bottom: 6rem;
+            }
+
+            .home-img {
+                width: 60%;
+            }
+
+            .input-box {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .projects {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            #menu-icon {
+                display: block;
+            }
+
+            .navbar {
+                position: absolute;
+                top: 100%;
+                left: -100%;
+                width: 100%;
+                background: rgba(10, 25, 47, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 3rem 0;
+                transition: left 0.5s ease;
+                box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+                border-top: 1px solid rgba(100, 255, 218, 0.1);
+            }
+
+            .navbar.active {
+                left: 0;
+            }
+
+            .navbar a {
+                padding: 1.5rem 3rem;
+                font-size: 1.8rem;
+                border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+                width: 100%;
+                text-align: center;
+                margin: 0;
+            }
+
+            .navbar a::after {
+                display: none;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 20px;
+            }
+
+            .tech-items {
+                grid-template-columns: 1fr;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .technical-summary {
+                padding: 30px 25px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 25px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .home-content h1 {
+                font-size: 4.5rem;
+            }
+
+            .text-animate h3 {
+                font-size: 2.8rem;
+            }
+
+            .section-title,
+            .heading {
+                font-size: 4rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .btn-box {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .home-img {
+                width: 80%;
+            }
+
+            .project {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .home-content h1 {
+                font-size: 3.8rem;
+            }
+
+            .section-title,
+            .heading {
+                font-size: 3.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <header class="header">
-    <a href="#" class="logo">Chirashree.</a>
-    <div class="bx bx-menu" id="menu-icon"></div>
-    <nav class="navbar">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#skills">Skill</a>
-      <a href="#projects">Project</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="logo">Chirashree<span>.</span></a>
+        <div class="bx bx-menu" id="menu-icon"></div>
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#tech-summary">Technical Summary</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
 
-
-  </header>
-
-  <!--Home Section -->
-  <section class="home" id="home">
-    <div class="home-content">
-      <h1>Hi, I'm <span>Chirashree L K</span></h1>
-      <div class="text-animate">
-        <h3>Software Developer</h3>
-
-      </div>
-      <p>A passionate Computer Science and Business Systems (CSBS) student with a knack for Java development and web
-        technologies. Explore my projects, skills, and journey as I build creative solutions and grow as a developer.
-      </p>
-      <div class="btn-box">
-      <a href="https://drive.google.com/file/d/1ZlrUhz40_pOHZohhij7IobxuIFNv5zbB/view?usp=drive_link" class="btn" >
-    <i class='bx bx-download' style="margin-right: 5px;"></i> Download CV
-  </a>
-</div>
-
-
-    </div>
-
-    <div class="home-sci">
-  <a href="https://www.linkedin.com/in/chirashree-l-k/" target="_blank">
-    <i class='bx bxl-linkedin'></i>
-  </a>
-  <a href="https://github.com/chirakulal" target="_blank">
-  <i class='bx bxl-github'></i>
-</a>
-<a href="mailto:chirashreelk@gmail.com">
-  <i class='bx bx-envelope'></i>
-</a>
-
-</div>
-
-    <div class="home-img">
-      <img src="images/photo11.png" alt="Chirashree">
-    </div>
-    <div class="home-imghover"></div>
-  </section>
-
-
-  <!-- About Section -->
-  <section class="about" id="about">
-    <h2 class="section-title">About <span>Me</span></h2>
-
-
-    <div class="about-img">
-      <img src="images/photo10_prev_ui (1).png" alt="Profile Photo">
-      <span class="circle-spin"></span>
-    </div>
-
-    <div class="about-content">
-      <h3>Software Developer!</h3>
-      <p>
-        I am a passionate and dedicated developer with
-        hands-on experience in Core Java, focusing on
-        OOP concepts such as classes, objects, inheritance, polymorphism, and collections. I enjoy building responsive
-        and user-friendly web interfaces using HTML, CSS, Bootstrap, and JavaScript. My backend skills include
-        developing dynamic web applications using Java Servlets for form handling and request processing, and
-        integrating JDBC to
-        perform database operations like insert, update, delete, and retrieval. I also apply Lambda Expressions for
-        clean and functional-style programming in Java. Committed to writing efficient and maintainable code, I leverage
-        Lombok annotations and follow clean coding standards. I’m experienced in version control using Git and GitHub,
-        and I’ve worked with both PostgreSQL
-        and MySQL for database management.
-      </p>
-
-      <div class="btn-box btns">
-
-        <a href="#" class="btn">Read More</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-<section class="skills" id="skills">
-  <h2><i class="fas fa-laptop-code"></i>Technical Skills</h2>
-  <div class="skills-grid">
-    <div class="skill-card"><img src="images/java.png" alt="Java"> Core Java</div>
-    <div class="skill-card"><img src="images/html.jpeg" alt="HTML"> HTML</div>
-    <div class="skill-card"><img src="images/css.jpg" alt="CSS"> CSS</div>
-    <div class="skill-card"><img src="images/javascript.webp" alt="JavaScript"> JavaScript</div>
-    <div class="skill-card"><img src="images/jspp.png" alt="JSP"> JSP</div>
-    <div class="skill-card"><img src="images/apache_tomcat.png" alt="Servlet"> Servlet</div>
-    <div class="skill-card"><img src="images/jdbc.png" alt="JDBC"> JDBC</div>
-    <div class="skill-card"><img src="images/eclipse.jpeg" alt="Eclipse"> Eclipse</div>
-    <div class="skill-card"><img src="images/intellij.png" alt="IntelliJ"> IntelliJ</div>
-    <div class="skill-card"><img src="images/postgresql.jpg" alt="PostgreSQL"> PostgreSQL</div>
-    <div class="skill-card"><img src="images/mysql.png" alt="MySQL"> MySQL</div>
-    <div class="skill-card"><img src="images/git.png" alt="Git"> Git</div>
-    <div class="skill-card"><img src="images/github.png" alt="GitHub"> GitHub</div>
-  </div>
-</section>
-
-
-
-<!-- --------------------------- Projects --------------------------- -->
-<section class="project-content" id="projects">
-  <div class="container">
-    <div class="project-title">
-      <h4>My Projects</h4>
-      <p>Discover my projects, where creativity meets innovation</p>
-    </div>
-
-    <div class="projects">
-
-      <!-- 1st Project
-      <a href="https://example.com/snake-game" target="_blank" class="project-link">
-        <div class="project">
-          <i class="fa fa-coffee"></i>
-          <h4></h4>
-          <p>
-           
-          </p>
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="home-content">
+            <h1>Hi, I'm <span>Chirashree L K</span></h1>
+            <div class="text-animate">
+                <h3><span class="typing-text">Software Developer!</span></h3>
+            </div>
+            <p>A passionate Software Developer with expertise in building scalable applications using Core Java, Spring Boot, JPA, and PostgreSQL. Dedicated to writing clean, efficient code and creating impactful full-stack solutions.</p>
+            <div class="btn-box">
+                <a href="https://drive.google.com/file/d/1Qwn5Uk7ziYetujBapZLnjKXAWCuoiNLZ/view?usp=drive_link" class="btn" target="_blank">
+                    <i class='bx bx-download' style="margin-right: 8px;"></i> Download CV
+                </a>
+                <a href="#contact" class="btn">
+                    <i class='bx bx-envelope' style="margin-right: 8px;"></i> Contact Me
+                </a>
+            </div>
         </div>
-      </a> -->
 
-      <!-- 2nd Project -->
-      <a href="https://chirakulal.github.io/CampusWay/" target="_blank" class="project-link">
-        <div class="project">
-          <i class="fa fa-car"></i>
-          <h4>Campus Way: QR Code Indoor Navigation</h4>
-          <p>
-            <strong>Technologies:</strong> HTML, CSS, JavaScript, Java, Spring, PostgreSQL<br>
-            - Developed a responsive front-end UI<br>
-            - Designed 2D map for layout visualization<br>
-            - Implemented A* path-finding algorithm<br>
-            - Built the backend with Java and Spring<br>
-            - Used PostgreSQL (pgAdmin) to manage data
-          </p>
+        <div class="home-sci">
+            <a href="https://www.linkedin.com/in/chirashree-l-k/" target="_blank" title="LinkedIn">
+                <i class='bx bxl-linkedin'></i>
+            </a>
+            <a href="https://github.com/chirakulal" target="_blank" title="GitHub">
+                <i class='bx bxl-github'></i>
+            </a>
+            <a href="mailto:chirashreelk@gmail.com" title="Email">
+                <i class='bx bx-envelope'></i>
+            </a>
         </div>
-      </a>
 
-      <!-- 3rd Project
-      <a href="https://example.com/portfolio" target="_blank" class="project-link">
-        <div class="project">
-          <i class="fa fa-desktop"></i>
-          <h4></h4>
-          <p>
-          </p>
-        </div>
-      </a> -->
-
+       <div class="home-img">
+        <!-- Updated image path -->
+        <img src="image/photo10.png" alt="Chirashree L K">
     </div>
-  </div>
-</section>
-
-
-    <!-- contact section design -->
-    <section class="contact" id="contact">
-        <h2 class="heading">Contact <span>Me</span><span class="animate scroll" style="--i:1;"></span></h2>
-
-        <form name="submit-to-google-sheet">
-            <div class="input-box">
-                <div class="input-field">
-                    <input type="text" name="fullname" placeholder="Full Name" required>
-                    <span class="focus"></span>
-                </div>
-                <div class="input-field">
-                    <input type="text" name="lastname" placeholder="Email" required>
-                    <span class="focus"></span>
-                </div>
-
-                <span class="animate scroll" style="--i:3;"></span>
-            </div>
-            <div class="input-box">
-                <div class="input-field">
-                    <input type="number" name="number" placeholder="Mobile Number" required>
-                    <span class="focus"></span>
-                </div>
-                <div class="input-field">
-                    <input type="text" name="email" placeholder="Email Subject" required>
-                    <span class="focus"></span>
-                </div>
-
-                <span class="animate scroll" style="--i:5;"></span>
-            </div>
-
-            <div class="textarea-field">
-                <textarea name="Message" id="" cols="30" rows="10" placeholder="Your Message" required></textarea>
-                <span class="focus"></span>
-
-                <span class="animate scroll" style="--i:7;"></span>
-            </div>
-
-            <div class="btn-box btns">
-                <button type="submit" class="btn">Submit</button>
-
-                <span class="animate scroll" style="--i:9;"></span>
-            </div>
-        </form>
-        <span id="msg"></span>
     </section>
 
-    <!-- footer design -->
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">About <span>Me</span></h2>
+        <div class="about-content">
+            <h3>Software Developer!</h3>
+            <p>
+                I am a passionate and dedicated developer with hands-on experience in Core Java, focusing on OOP concepts such as classes, objects, inheritance, polymorphism, and collections. I enjoy building responsive and user-friendly web interfaces using HTML, CSS, Bootstrap, and JavaScript. My backend skills include developing dynamic web applications using Java Servlets for form handling and request processing, and integrating JDBC to perform database operations like insert, update, delete, and retrieval. I also apply Lambda Expressions for clean and functional-style programming in Java. Committed to writing efficient and maintainable code, I leverage Lombok annotations and follow clean coding standards. I'm experienced in version control using Git and GitHub, and I've worked with both PostgreSQL and MySQL for database management.
+            </p>
+            <div class="btn-box btns">
+                <a href="#tech-summary" class="btn">View Technical Skills</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <h2 class="section-title">Technical <span>Skills</span></h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png" alt="Java">
+                <span>Core Java</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML">
+                <span>HTML</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" alt="CSS">
+                <span>CSS</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript">
+                <span>JavaScript</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968522.png" alt="Spring Boot">
+                <span>Spring Boot</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968342.png" alt="PostgreSQL">
+                <span>PostgreSQL</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1199/1199128.png" alt="MySQL">
+                <span>MySQL</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2772/2772128.png" alt="JDBC">
+                <span>JDBC</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/888/888859.png" alt="JSP">
+                <span>JSP</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968282.png" alt="Servlet">
+                <span>Servlet</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968890.png" alt="Eclipse">
+                <span>Eclipse</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968520.png" alt="IntelliJ">
+                <span>IntelliJ</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/4494/4494740.png" alt="Git">
+                <span>Git</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub">
+                <span>GitHub</span>
+            </div>
+            <div class="skill-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png" alt="Bootstrap">
+                <span>Bootstrap</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Summary Section -->
+    <section class="about" id="tech-summary">
+        <h2 class="section-title">Technical <span>Summary</span></h2>
+        <div class="technical-summary">
+            <h3>Tools & Technologies Explained</h3>
+            
+            <div class="tech-category">
+                <h4>Programming Languages & Core Concepts</h4>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <h5>Core Java (Java 8/11/17)</h5>
+                        <p>Strong foundation in Java fundamentals including multithreading, exception handling, and file I/O operations with knowledge of modern Java features up to version 17.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Object-Oriented Programming (OOP)</h5>
+                        <p>Expertise in OOP principles: encapsulation, inheritance, polymorphism, and abstraction for designing scalable and maintainable software architectures.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Lambda Expressions</h5>
+                        <p>Proficient in functional programming concepts using lambda expressions for cleaner, more concise code and improved readability.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Collection Framework</h5>
+                        <p>Extensive experience with Java Collections Framework including Lists, Sets, Maps, and their implementations for efficient data manipulation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-category">
+                <h4>Frameworks & Libraries</h4>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <h5>Spring Boot</h5>
+                        <p>Developed and optimized backend components using Spring Boot for dependency injection, modular design, and rapid application development.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Spring & JPA</h5>
+                        <p>Implemented JPA with Hibernate for seamless ORM mapping, reducing boilerplate code and improving query efficiency by 25% in projects.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Lombok</h5>
+                        <p>Utilized Lombok annotations to reduce boilerplate code, enhancing code maintainability and readability while following clean coding standards.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Maven</h5>
+                        <p>Experience with Maven for project build automation, dependency management, and standardized project structure.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>JUnit</h5>
+                        <p>Implemented unit testing with JUnit to ensure code reliability, test-driven development, and maintainable codebase.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-category">
+                <h4>Web Technologies</h4>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <h5>HTML/CSS/JavaScript</h5>
+                        <p>Built responsive and user-friendly web interfaces with modern HTML5, CSS3, and JavaScript for dynamic frontend experiences.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>JSP & Servlet</h5>
+                        <p>Developed dynamic web applications using Java Servlets for server-side processing and JSP for creating dynamic web content.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Bootstrap</h5>
+                        <p>Created responsive, mobile-first web designs using Bootstrap framework for consistent UI across devices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-category">
+                <h4>Databases & Tools</h4>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <h5>PostgreSQL & MySQL</h5>
+                        <p>Experience with relational database management including schema design, query optimization, and CRUD operations using both PostgreSQL and MySQL.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Eclipse & IntelliJ IDEA</h5>
+                        <p>Proficient in using both Eclipse and IntelliJ IDEA for Java development with expertise in debugging, refactoring, and project management.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Git & GitHub</h5>
+                        <p>Version control expertise using Git for source code management and GitHub for collaboration, code review, and project hosting.</p>
+                    </div>
+                    <div class="tech-item">
+                        <h5>Visual Studio Code</h5>
+                        <p>Used VS Code for frontend development with extensions for HTML, CSS, and JavaScript development.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="project-content" id="projects">
+        <h2 class="section-title">My <span>Projects</span></h2>
+        <div class="project-title">
+            <p>Discover my projects, where creativity meets innovation</p>
+        </div>
+        
+        <div class="projects">
+            <a href="https://chirakulal.github.io/CampusWay/" target="_blank" class="project-link">
+                <div class="project">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Campus Way: QR Code Indoor Navigation</h4>
+                    <p>
+                        <strong>Technologies:</strong> Java, Spring Boot, HTML, CSS, JavaScript, PostgreSQL<br><br>
+                        • Designed and implemented an indoor navigation system using A* algorithm for optimal route detection<br>
+                        • Built backend services using Spring Boot and PostgreSQL<br>
+                        • Developed responsive 2D web interface for campus navigation<br>
+                        • Improved data processing efficiency by 20% through optimized algorithms<br>
+                        • Served 200+ users with scalable backend design
+                    </p>
+                </div>
+            </a>
+            
+            <a href="#" class="project-link">
+                <div class="project">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Portfolio Website</h4>
+                    <p>
+                        <strong>Technologies:</strong> HTML, CSS, JavaScript, Responsive Design<br><br>
+                        • Developed a fully responsive portfolio website<br>
+                        • Implemented modern UI/UX principles for optimal user experience<br>
+                        • Integrated interactive elements and smooth animations<br>
+                        • Optimized for performance and SEO best practices<br>
+                        • Cross-browser compatible design
+                    </p>
+                </div>
+            </a>
+            
+            <a href="#" class="project-link">
+                <div class="project">
+                    <i class="fas fa-database"></i>
+                    <h4>E-Commerce Backend System</h4>
+                    <p>
+                        <strong>Technologies:</strong> Java, Spring Boot, JPA, PostgreSQL, REST API<br><br>
+                        • Developed RESTful APIs for product management and order processing<br>
+                        • Implemented JPA with Hibernate for database interactions<br>
+                        • Created secure authentication using Spring Security<br>
+                        • Optimized database queries for improved performance<br>
+                        • Integrated with frontend applications for complete functionality
+                    </p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="heading">Contact <span>Me</span></h2>
+        
+        <form id="contact-form">
+            <div class="input-box">
+                <div class="input-field">
+                    <input type="text" id="name" placeholder="Full Name" required>
+                    <span class="focus"></span>
+                </div>
+                <div class="input-field">
+                    <input type="email" id="email" placeholder="Email Address" required>
+                    <span class="focus"></span>
+                </div>
+            </div>
+            
+            <div class="input-box">
+                <div class="input-field">
+                    <input type="tel" id="phone" placeholder="Mobile Number">
+                    <span class="focus"></span>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="subject" placeholder="Email Subject" required>
+                    <span class="focus"></span>
+                </div>
+            </div>
+            
+            <div class="textarea-field">
+                <textarea id="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
+                <span class="focus"></span>
+            </div>
+            
+            <div class="btn-box btns">
+                <button type="submit" class="btn">Send Message</button>
+            </div>
+        </form>
+        <div id="form-message" style="margin-top: 30px; text-align: center;"></div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-text">
-            <p>Copyright &copy; Portfolio. by Chirashree</p>
-
-            <span class="animate scroll" style="--i:1;"></span>
+            <p>Copyright &copy; 2025 by Chirashree L K | All Rights Reserved.</p>
         </div>
-
+        
         <div class="footer-iconTop">
-            <a href="#"><i class='bx bx-up-arrow-alt'></i></a>
-
-            <span class="animate scroll" style="--i:3;"></span>
+            <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
         </div>
     </footer>
 
-
-
-
-
-
-  <script src="index.js"></script>
+    <script>
+        // Toggle mobile menu
+        const menuIcon = document.querySelector('#menu-icon');
+        const navbar = document.querySelector('.navbar');
+        const header = document.querySelector('.header');
+        
+        menuIcon.onclick = () => {
+            navbar.classList.toggle('active');
+            menuIcon.classList.toggle('bx-x');
+        };
+        
+        // Close menu when clicking on a link
+        document.querySelectorAll('.navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+            });
+        });
+        
+        // Sticky header
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('sticky', window.scrollY > 100);
+            
+            // Highlight active section in navbar
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.navbar a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Show success message
+            const formMessage = document.getElementById('form-message');
+            formMessage.innerHTML = `
+                <div style="background: rgba(100, 255, 218, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid var(--main-color);">
+                    <p style="color: var(--main-color); font-weight: 600; font-size: 1.6rem;">Thank you, ${name}! Your message has been sent successfully.</p>
+                    <p style="color: var(--accent-color); margin-top: 10px; font-size: 1.4rem;">I'll get back to you at ${email} as soon as possible.</p>
+                </div>
+            `;
+            
+            // Reset form
+            document.getElementById('contact-form').reset();
+            
+            // Scroll to message
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                formMessage.innerHTML = '';
+            }, 5000);
+        });
+        
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.skill-card, .project, .tech-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add hover effect to project links
+        document.querySelectorAll('.project-link').forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                link.querySelector('.project').style.transform = 'translateY(-15px)';
+            });
+            
+            link.addEventListener('mouseleave', () => {
+                link.querySelector('.project').style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
-
 </html>
